@@ -13,7 +13,7 @@ xhttp.onreadystatechange = function() {
         }
     }
 };
-xhttp.open("GET", "../DATA/Final_data.json", true);
+xhttp.open("GET", "../data/Final_data.json", false);
 xhttp.send();
 console.log(data);
 
@@ -35,9 +35,9 @@ const texture = loader.load('./IMAGES/8k.jpg');
 //EARTH (Creating the shape, adding material, setting size, adding to the scene)
 const geometry = new THREE.SphereGeometry(15, 500, 500);
 const material = new THREE.MeshBasicMaterial({map:texture});
-const sphere = new THREE.Mesh( geometry, material);
-scene.add( sphere );
-    
+const earth = new THREE.Mesh( geometry, material);
+scene.add( earth );
+
 camera.position.z = 30;
 
 
@@ -58,6 +58,7 @@ controls.screenSpacePanning = false;
 controls.minDistance = 15.5;
 controls.maxDistance = 40;
 controls.maxPolarAngle = Math.PI / 1;
+controls.enablePan = false;
 
 // Add event listeners so DOM knows what functions to use when objects/items are interacted with
 window.addEventListener('resize', onWindowResize, false);
@@ -70,10 +71,10 @@ function onWindowResize() {
 
 // Create and add coordinates for the globe
 function addCountryCoord(earth, country, language, latitude, longitude, color, region, population, area_sq_mi, gdp_per_capita, climate){
-    let pointOfInterest = new THREE.SphereGeometry(15, 500, 500);
+    let pointOfInterest = new THREE.SphereGeometry(.1, 32, 32);
     let lat = latitude * (Math.PI/180);
     let lon = -longitude * (Math.PI/180);
-    const radius = 10;
+    const radius = 15;
     const phi = (90-lat)*(Math.PI/180);
     const theta = (lon+180)*(Math.PI/180);
 
@@ -103,6 +104,39 @@ function addCountryCoord(earth, country, language, latitude, longitude, color, r
     mesh.userData.gdp_per_capita = gdp_per_capita;
     mesh.userData.climate = climate;
 
+    earth.add(mesh)
+};
+
+
+// Changes the information so data points can be seen
+function changeToCountry() {
+    // Get the data from the JSON file
+    for (let i = 0; i < data.length; i++){
+        if(data[i].Region == 'ASIA (EX. NEAR EAST)'){
+            addCountryCoord(earth, data[i].Country, data[i].Languages, data[i].latitude, data[i].longitude, 'yellow', data[i].Region, data[i].Population, data[i].Area_sq_mi, data[i].GPD_per_capita, data[i].Climate);
+        } else if(data[i].Region == 'NEAR EAST'){
+            addCountryCoord(earth, data[i].Country, data[i].Languages, data[i].latitude, data[i].longitude, 'orange', data[i].Region, data[i].Population, data[i].Area_sq_mi, data[i].GPD_per_capita, data[i].Climate);
+        } else if(data[i].Region == 'NORTHERN AMERICA'){
+            addCountryCoord(earth, data[i].Country, data[i].Languages, data[i].latitude, data[i].longitude, 'lightblue', data[i].Region, data[i].Population, data[i].Area_sq_mi, data[i].GPD_per_capita, data[i].Climate);
+        } else if(data[i].Region == 'WESTERN EUROPE'){
+            addCountryCoord(earth, data[i].Country, data[i].Languages, data[i].latitude, data[i].longitude, 'cyan', data[i].Region, data[i].Population, data[i].Area_sq_mi, data[i].GPD_per_capita, data[i].Climate);
+        } else if(data[i].Region == 'EASTERN EUROPE'){
+            addCountryCoord(earth, data[i].Country, data[i].Languages, data[i].latitude, data[i].longitude, 'red', data[i].Region, data[i].Population, data[i].Area_sq_mi, data[i].GPD_per_capita, data[i].Climate);
+        } else if(data[i].Region == 'BALTICS'){
+            addCountryCoord(earth, data[i].Country, data[i].Languages, data[i].latitude, data[i].longitude, 'purple', data[i].Region, data[i].Population, data[i].Area_sq_mi, data[i].GPD_per_capita, data[i].Climate);
+        } else if(data[i].Region == 'C.W. OF IND. STATES'){
+            addCountryCoord(earth, data[i].Country, data[i].Languages, data[i].latitude, data[i].longitude, 'orange', data[i].Region, data[i].Population, data[i].Area_sq_mi, data[i].GPD_per_capita, data[i].Climate);
+        } else if(data[i].Region == 'NORTHERN AFRICA'){
+            addCountryCoord(earth, data[i].Country, data[i].Languages, data[i].latitude, data[i].longitude, 'beige', data[i].Region, data[i].Population, data[i].Area_sq_mi, data[i].GPD_per_capita, data[i].Climate);
+        } else if(data[i].Region == 'SUB-SAHARN AFRICA'){
+            addCountryCoord(earth, data[i].Country, data[i].Languages, data[i].latitude, data[i].longitude, 'brown', data[i].Region, data[i].Population, data[i].Area_sq_mi, data[i].GPD_per_capita, data[i].Climate);
+        } else if(data[i].Region == 'LATIN AMER. & CARIB'){
+            addCountryCoord(earth, data[i].Country, data[i].Languages, data[i].latitude, data[i].longitude, 'gold', data[i].Region, data[i].Population, data[i].Area_sq_mi, data[i].GPD_per_capita, data[i].Climate);
+        } else if(data[i].Region == 'OCEANIA'){
+            addCountryCoord(earth, data[i].Country, data[i].Languages, data[i].latitude, data[i].longitude, 'lightgreen', data[i].Region, data[i].Population, data[i].Area_sq_mi, data[i].GPD_per_capita, data[i].Climate);
+        }
+    }
 };
 
 animate();
+changeToCountry()

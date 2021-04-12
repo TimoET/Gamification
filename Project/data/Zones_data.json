@@ -1,0 +1,23 @@
+[
+    {
+        "Country":"Portugal",
+        "Area":"Greater Côa Valley",
+        "latitude":40.044438,
+        "longitude":-7.125586,
+        "Area_sq_meter":647500
+    },
+    {
+        "Country":"Kenya",
+        "Area":"Kitenden Corridor",
+        "latitude":-2.638532,
+        "longitude":37.238961,
+        "Area_sq_meter":647500
+    },
+    {
+        "Country":"Brazil",
+        "Area":"Yawanawá",
+        "latitude":-8.390865,
+        "longitude":-71.534316,
+        "Area_sq_meter":647500
+    }
+]

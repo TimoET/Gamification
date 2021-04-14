@@ -4,11 +4,11 @@
 		<meta charset="utf-8">
 		<title>Globe</title>
 		<script src="js/three.js"></script>
-		<style>
-			body { margin: 0; }
-		</style>
+
+		<link rel="stylesheet" type="text/css" href="./css/style.css" />
 	</head>
 	<body>
+		<div id="map"></div>
 		<div id="info-box">
 
 			<div id="country-info">
@@ -28,7 +28,8 @@
 		<script type="module" src="js/ZonesCreation.js"></script>
 		<script type="module" src="js/EventHandler.js"></script>
 		<script type="module" src="js/Controls.js"></script>
-		
-		
+		<script type="module" src="js/GoogleMap.js"></script>
+		<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxwEAD_XHAvfWyayJmW90mADVmxNc2kso"></script>
 	</body>
 </html>

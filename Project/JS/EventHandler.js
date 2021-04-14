@@ -1,6 +1,6 @@
 import { camera } from './globe.js';
 import { renderer } from './globe.js';
-
+import { earth } from './globe.js';
 // Add event listeners so DOM knows what functions to use when objects/items are interacted with
 window.addEventListener('resize', onWindowResize, false);
 window.addEventListener('click', onWindowClick, false);
@@ -20,7 +20,8 @@ function onWindowClick(event) {
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
 
-    let intersects = raycaster.intersectObjects(earth.children);
+    let intersects = raycaster.intersectObjects(object.earth.children);
+    console.log(earth.mesh);
 
     for (let i = 0; i < intersects.length; i++){
         document.querySelector("#country-info").innerText = "Country: " + intersects[0].object.userData.country;

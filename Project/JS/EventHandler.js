@@ -20,8 +20,8 @@ function onWindowClick(event) {
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
 
-    let intersects = raycaster.intersectObjects(object.earth.children);
-    console.log(earth.mesh);
+    let intersects = raycaster.intersectObjects(earth.children, true);
+    console.log(earth.children, true);
 
     for (let i = 0; i < intersects.length; i++){
         document.querySelector("#country-info").innerText = "Country: " + intersects[0].object.userData.country;

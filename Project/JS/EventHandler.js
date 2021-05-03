@@ -6,6 +6,8 @@ window.addEventListener('resize', onWindowResize, false);
 window.addEventListener('click', onWindowClick, false);
 window.addEventListener('click', onDocumentMouseMove, false);
 
+let canvas = document.querySelector('canvas');
+
 // Mouse
 let raycaster = new THREE.Raycaster();
 let mouse = new THREE.Vector2();
@@ -14,8 +16,8 @@ function onDocumentMouseMove( event ) {
 
     event.preventDefault();
 
-    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    mouse.x = ( event.offsetX / canvas.clientWidth ) * 2 - 1;
+    mouse.y = - ( event.offsetY / canvas.clientHeight ) * 2 + 1;
 }
 
 // Listens for the mouse to intersect object and when clicked returns the data to the inner html
@@ -33,17 +35,16 @@ function onWindowClick(event) {
         }
     }
     
-      if (intersects.length > 0) {
-          console.log(intersects);
+    if (intersects.length > 0) {
         for (let i = 0; i < intersects.length; i++){
             document.querySelector("#country-info").innerText = "Country: " + intersects[0].object.userData.country;
             document.querySelector("#area").innerText = "Area: " + intersects[0].object.userData.area;
             document.querySelector("#area-sq-meter").innerText = "Area(meter^2): " + intersects[0].object.userData.area_sq_meter;
         }
         return intersects;
-      } else {
+    } else {
         return null;
-      }
+    }
 
     
 

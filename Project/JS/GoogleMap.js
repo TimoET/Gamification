@@ -1,11 +1,20 @@
 import { data } from './dataImport.js';
-
+import { userData } from './dataImport.js';
+import { Rectangle } from './Rectangle.js';
 // Amount of Latitude and longatute between meters
-let LatBetweenMeter = 0.000100;
+let LatBetweenMeter = 0.000085;
 let LngBetweenMeter = 0.0001000;
 
+export { LatBetweenMeter };
+export { LngBetweenMeter };
+
+//Grid width and height
+let gridWidth = 10;
+let gridHeigt = 10;
+
+//initial map creation with start lat and lng
 function initMap() {
-    let location = { lat: 34.879172, lng: -120.142419 };
+    let location = { lat: 40.0441405, lng: -7.125136 };
     let map = new google.maps.Map(document.getElementById("map"), {
     center: location,
     zoom: 8,
@@ -16,7 +25,9 @@ function initMap() {
   MarkerMaker(map);
   GenerateAllGrids(map);
 }
+initMap();
 
+//Red markers on the map
 function MarkerMaker(theMap){
   for (let i = 0; i < data.length; i++){
     var myLatlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
@@ -28,40 +39,36 @@ function MarkerMaker(theMap){
   }
 }
 
-function Rectangle(theMap, TopCornerLat, TopCornerLng, BotCornerLat, BotCornerLng, randomColor){
-  let rectangle = new google.maps.Rectangle({
-    map: theMap,
-    bounds: new google.maps.LatLngBounds(
-      new google.maps.LatLng (TopCornerLat, TopCornerLng),
-      new google.maps.LatLng (BotCornerLat, BotCornerLng)
-    ),
-    fillColor: randomColor,
-    strokeColor: randomColor,
-    strokeWeight: 1,
-  });
-}
-
 function Grid(theMap, witdh, height, TCLat, TCLng, BCLat, BCLng){
 
   for(let i = 0; i < witdh; i++){
-    Rectangle(theMap, TCLat, TCLng + LngBetweenMeter * i, BCLat, BCLng + LngBetweenMeter * i, getRandomColor());
-  }
-  for(let i = 0; i < witdh; i++){
-    for(let j = 1; j < height; j++){
-      Rectangle(theMap, TCLat - LatBetweenMeter * j,TCLng + LngBetweenMeter * i, BCLat - LatBetweenMeter * j, BCLng + LngBetweenMeter * i, getRandomColor());
+    let rectangle = new Rectangle(TCLat, TCLng + LngBetweenMeter * i, BCLat, BCLng + LngBetweenMeter * i, getRandomColor())
+    rectangle.draw(theMap);
+
+    //Checking for each user if the lat and lng corresponts by them protected UON
+    for(let i = 0; i < userData.length; i++){
+      if(userData[i].latitude0 == rectangle.TCLat + (LatBetweenMeter / 2) && userData[i].longitude0 == rectangle.TCLng + (LngBetweenMeter / 2)){
+        //rectangle.addUser(userData[i].userName)
+      }
     }
   }
-  
+    
+  for(let i = 0; i < witdh; i++){
+    for(let j = 1; j < height; j++){
+      let rectangle = new Rectangle(TCLat - LatBetweenMeter * j,TCLng + LngBetweenMeter * i, BCLat - LatBetweenMeter * j, BCLng + LngBetweenMeter * i, getRandomColor(), true);
+      rectangle.draw(theMap);
+    }
+  }
 }
 
 function GenerateAllGrids(theMap) {
   // Get the data from the JSON file
   for (let i = 0; i < data.length; i++){
-    Grid(theMap, 100, 100, data[i].latitude, data[i].longitude, data[i].latitude + LatBetweenMeter, data[i].longitude + LngBetweenMeter);
+    Grid(theMap, gridWidth, gridHeigt, data[i].latitude, data[i].longitude, data[i].latitude + LatBetweenMeter, data[i].longitude + LngBetweenMeter, true);
   }
 };
 
-initMap();
+
 
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
@@ -71,3 +78,4 @@ function getRandomColor() {
   }
   return color;
 }
+

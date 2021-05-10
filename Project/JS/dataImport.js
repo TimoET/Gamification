@@ -1,40 +1,27 @@
 //Zones data
 let data = [];
-let xhttp = new XMLHttpRequest();
+let xhttp1 = new XMLHttpRequest();
 
 //User data
 let userData = [];
-let xhttp1 = new XMLHttpRequest();
+let xhttp2 = new XMLHttpRequest();
 
-//Zones
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        let response = JSON.parse(xhttp.responseText);
-        let output = Object.values(response);
-        for (let i = 0; i < output.length; i++) {
-            data.push(output[i]);
+function ImportData(name,xhttp,src){
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let response = JSON.parse(xhttp.responseText);
+            let output = Object.values(response);
+            for (let i = 0; i < output.length; i++) {
+                name.push(output[i]);
+            }
         }
-    }
-};
+    };
+    xhttp.open("GET", src, false);
+    xhttp.send();
+}
 
-//Users
-xhttp1.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        let response1 = JSON.parse(xhttp1.responseText);
-        let output1 = Object.values(response1);
-        for (let i = 0; i < output1.length; i++) {
-            userData.push(output1[i]);
-        }
-    }
-};
-
-//Zones
-xhttp.open("GET", "../data/Zones_data.json", false);
-xhttp.send();
-
-//Users
-xhttp1.open("GET", "../data/User_data.json", false);
-xhttp1.send();
+ImportData(data,xhttp1,"../data/Zones_data.json");
+ImportData(userData,xhttp2,"../data/User_data.json");
 
 export { data };
 export { userData };

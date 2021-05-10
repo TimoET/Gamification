@@ -1,6 +1,7 @@
 import { Popup } from './Popup.js';
 import { LatBetweenMeter } from './GoogleMap.js';
 import { LngBetweenMeter } from './GoogleMap.js';
+import { userData } from './dataImport.js';
 
 class Rectangle {
     constructor(TopCornerLat, TopCornerLng, BotCornerLat, BotCornerLng, color, clickable) {
@@ -10,6 +11,7 @@ class Rectangle {
         this.BotCornerLng = BotCornerLng;
         this.color = color;
         this.clickable = clickable || false;
+        this.user;
     }
     draw(theMap){
         let rectangle = new google.maps.Rectangle({
@@ -33,7 +35,16 @@ class Rectangle {
             console.log(rectangle.fillColor);
             console.log(pos);
 
-            let contentString = "The Latitude is: " + e + "<br>" +" The Longatude is: " + a;
+            let contentString = 
+            "The Latitude is: " + e + 
+            "<br>" +
+            " The Longatude is: " + a +
+            "<br>" +
+            "Owned by: " + this.user +
+            "<br>" +
+            "<br>" +
+            "Trade";
+            
             document.getElementById("content").innerHTML = contentString;
 
             let popup = new Popup(
@@ -42,6 +53,9 @@ class Rectangle {
             );
             popup.setMap(theMap);
         });
+    }
+    addUser(userName){
+        this.user = userName;
     }
 }
 

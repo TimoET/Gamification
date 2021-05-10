@@ -10,7 +10,8 @@ export { LngBetweenMeter };
 
 //Grid width and height
 let gridWidth = 10;
-let gridHeigt = 10;
+let gridHeigt = 3;
+
 
 //initial map creation with start lat and lng
 function initMap() {
@@ -40,29 +41,29 @@ function MarkerMaker(theMap){
 }
 
 function Grid(theMap, witdh, height, TCLat, TCLng, BCLat, BCLng){
-
+  //Rectangles array
+  let allRects = [];
   for(let i = 0; i < witdh; i++){
-    let rectangle = new Rectangle(TCLat, TCLng + LngBetweenMeter * i, BCLat, BCLng + LngBetweenMeter * i, getRandomColor())
-    rectangle.draw(theMap);
-
-    //Checking for each user if the lat and lng corresponts by them protected UON
-    for(let i = 0; i < userData.length; i++){
-      if(userData[i].latitude0 == rectangle.TCLat + (LatBetweenMeter / 2) && userData[i].longitude0 == rectangle.TCLng + (LngBetweenMeter / 2)){
-        //rectangle.addUser(userData[i].userName)
-      }
-    }
-  }
-    
-  for(let i = 0; i < witdh; i++){
-    for(let j = 1; j < height; j++){
+    for(let j = 0; j < height; j++){
       let rectangle = new Rectangle(TCLat - LatBetweenMeter * j,TCLng + LngBetweenMeter * i, BCLat - LatBetweenMeter * j, BCLng + LngBetweenMeter * i, getRandomColor(), true);
       rectangle.draw(theMap);
+      allRects.push(rectangle);
     }
   }
+
+  for(let i = 0; i < allRects.length; i++){
+    for(let j = 0; j < userData.length; j++){
+      for(let k = 0; k < userData[j].latitude.length; k++){
+        if(userData[j].latitude[k] == allRects[i].TopCornerLat + (LatBetweenMeter / 2) && userData[j].longitude[k] == allRects[i].TopCornerLng + (LngBetweenMeter / 2)){
+          console.log("UON owned");
+          allRects[i].addUser(userData[j].userName);
+        }
+      }
+    }
+  }  
 }
 
 function GenerateAllGrids(theMap) {
-  // Get the data from the JSON file
   for (let i = 0; i < data.length; i++){
     Grid(theMap, gridWidth, gridHeigt, data[i].latitude, data[i].longitude, data[i].latitude + LatBetweenMeter, data[i].longitude + LngBetweenMeter, true);
   }

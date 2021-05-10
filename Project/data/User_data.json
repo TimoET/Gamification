@@ -1,25 +1,17 @@
 [
     {
         "userName":"Timo Brandt",
-        "latitude0":40.044438,
-        "longitude0":-7.125586,
-        "latitude1":40.0439705,
-        "longitude1":-7.125336,
-        "latitude2": 40.0440555,
-        "longitude2":-7.125336
+        "latitude":[ 40.0444805, 40.0444805, 40.0443955 ],
+        "longitude":[ -7.125536, -7.125336, -7.125536 ]
     },
     {
-        "Country":"Kenya",
-        "Area":"Kitenden Corridor",
-        "latitude":-2.638532,
-        "longitude":37.238961,
-        "Area_sq_meter":647500
+        "userName":"Remco Groen",
+        "latitude":[ 40.0444805, 40.0444805, 40.0443955],
+        "longitude":[  -7.124736, -7.124636000000001, -7.124636000000001 ]
     },
     {
-        "Country":"Brazil",
-        "Area":"Yawanawá",
-        "latitude":-8.390865,
-        "longitude":-71.534316,
-        "Area_sq_meter":647500
+        "userName":"Sashu Sanil",
+        "latitude":[ 40.0444805, 40.0444805, 40.0444805 ],
+        "longitude":[ -7.125136, -7.125036000000001, -7.124936 ]
     }
 ]

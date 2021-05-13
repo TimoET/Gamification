@@ -1,7 +1,7 @@
 import { Popup } from './Popup.js';
 import { LatBetweenMeter } from './GoogleMap.js';
 import { LngBetweenMeter } from './GoogleMap.js';
-import { userData } from './dataImport.js';
+import { Trade } from './Trade.js';
 
 class Rectangle {
     constructor(TopCornerLat, TopCornerLng, BotCornerLat, BotCornerLng, color, clickable) {
@@ -32,9 +32,15 @@ class Rectangle {
             let a = this.TopCornerLng + (LngBetweenMeter / 2);
             let pos = {e, a};
 
+            let tradeButton = document.createElement("BUTTON");
+            tradeButton.innerText = "Trade";
+            
+            let tradeClass = new Trade();
+            tradeButton.onclick = tradeClass.tradem2();
+
             console.log(rectangle.fillColor);
             console.log(pos);
-
+            
             let contentString = 
             "The Latitude is: " + e + 
             "<br>" +
@@ -42,15 +48,17 @@ class Rectangle {
             "<br>" +
             "Owned by: " + this.user +
             "<br>" +
-            "<br>" +
-            "Trade";
+            "<br>" 
+           ;
             
             document.getElementById("content").innerHTML = contentString;
 
             let popup = new Popup(
                 new google.maps.LatLng(e, a),
-                document.getElementById("content")
+                document.getElementById("content"),
+                tradeButton
             );
+
             popup.setMap(theMap);
         });
     }

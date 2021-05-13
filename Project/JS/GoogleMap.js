@@ -10,7 +10,7 @@ export { LngBetweenMeter };
 
 //Grid width and height
 let gridWidth = 10;
-let gridHeigt = 3;
+let gridHeigt = 10;
 
 
 //initial map creation with start lat and lng

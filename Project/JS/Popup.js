@@ -3,7 +3,6 @@ class Popup extends google.maps.OverlayView {
       super();
       this.position = position;
       content.classList.add("popup-bubble");
-      //button.classList.add("popup-bubble");
       // This zero-height div is positioned at the bottom of the bubble.
       const bubbleAnchor = document.createElement("div");
       bubbleAnchor.classList.add("popup-bubble-anchor");
@@ -12,7 +11,7 @@ class Popup extends google.maps.OverlayView {
       this.containerDiv = document.createElement("div");
       this.containerDiv.classList.add("popup-container");
       this.containerDiv.appendChild(bubbleAnchor);
-      //this.containerDiv.appendChild(button);
+      content.appendChild(button);
       // Optionally stop clicks, etc., from bubbling up to the map.
       Popup.preventMapHitsAndGesturesFrom(this.containerDiv);
     }

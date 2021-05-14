@@ -12,6 +12,9 @@ export { LngBetweenMeter };
 let gridWidth = 10;
 let gridHeigt = 10;
 
+let currentUser = "Timo Brandt";
+export { currentUser };
+
 
 //initial map creation with start lat and lng
 function initMap() {

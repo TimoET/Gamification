@@ -36,7 +36,9 @@ class Rectangle {
             tradeButton.innerText = "Trade";
             
             let tradeClass = new Trade();
-            tradeButton.onclick = tradeClass.tradem2();
+            tradeButton.addEventListener ("click", function(){
+                tradeClass.tradem2();
+            }); 
 
             console.log(rectangle.fillColor);
             console.log(pos);

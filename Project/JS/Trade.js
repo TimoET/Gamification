@@ -1,3 +1,4 @@
+import { currentUser } from './GoogleMap.js';
 import { userData } from './dataImport.js';
 
 class Trade {

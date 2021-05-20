@@ -12,7 +12,7 @@ export { LngBetweenMeter };
 let gridWidth = 10;
 let gridHeigt = 10;
 
-let currentUser = "Timo Brandt";
+let currentUser = userData[0].userName;
 export { currentUser };
 
 
@@ -71,8 +71,6 @@ function GenerateAllGrids(theMap) {
     Grid(theMap, gridWidth, gridHeigt, data[i].latitude, data[i].longitude, data[i].latitude + LatBetweenMeter, data[i].longitude + LngBetweenMeter, true);
   }
 };
-
-
 
 function getRandomColor() {
   var letters = '0123456789ABCDEF';

@@ -32,7 +32,7 @@ class Rectangle {
         
             let e = this.TopCornerLat + (LatBetweenMeter / 2);
             let a = this.TopCornerLng + (LngBetweenMeter / 2);
-
+            let pos = {e,a};
             let tradeButton = document.createElement("BUTTON");
             tradeButton.innerText = "Trade";
             
@@ -55,7 +55,7 @@ class Rectangle {
                                 let selectMenu = document.createElement("select"); 
                                 let submitButton = document.createElement("BUTTON");
                                 submitButton.innerText = "Submit";
-                                //For loop that logs all the UON the loggedin user owns.
+                                //For loop that creates a select menu of all the UON the logged-in user owns.
                                 for(let j = 0; j < userData[i].latitude.length; j++){
                                     let option = document.createElement('option');
                                     let lat = userData[i].latitude[j];
@@ -71,21 +71,37 @@ class Rectangle {
                                 }
                                 document.getElementById("content").appendChild(selectMenu);
                                 document.getElementById("content").appendChild(submitButton);
+
+                                //Submit Button
                                 submitButton.addEventListener ("click", function(){
-                                    let selectedUON = document.querySelector("select").value;
-                                    let clickedUON = {e,a};
+                                    //Get string value of selected UON
+                                    let selectedOwnedUON = document.querySelector("select").value;
                                     
                                     for(let i = 0; i < userData.length; i++){
                                         for(let j = 0; j < userData[i].latitude.length; j++){
+                                            //
                                             let UONlat = userData[i].latitude[j];
                                             let UONlng = userData[i].longitude[j];
-                                            let checkingUON = {UONlat,UONlng};
-                                            checkingUON = Object.values(checkingUON);
-                                            
-                                            if(checkingUON == selectedUON){
-                                                userData[i].latitude[j] = 12354;
-                                                userData[i].longitude[j] = 54321;
-                                                console.log(userData[i].latitude[j],userData[i].longitude[j]);
+                                            let unownedUON = {UONlat,UONlng};
+                                            unownedUON = Object.values(unownedUON);
+                                            console.log(unownedUON);
+                                            //Checks the UON untill it corresponts to the selected UON
+                                            if(unownedUON == selectedOwnedUON){
+                                                for(let k = 0; k < userData.length; k++){
+                                                    for(let l = 0; l < userData[k].latitude.length; l++){
+                                                        if(unownedUON == this.pos){ 
+                                                            userData[k].latitude[l] = 0;
+                                                            userData[k].longitude[l] = 0;
+                                                            console.log("test");
+                                                        }
+                                                    }
+                                                }
+                                                let owned = selectedOwnedUON.split(",");
+                                                userData[i].latitude[j] = owned.splice(0,1);
+                                                userData[i].longitude[j] = owned;
+                                                
+                                                this.e = owned.splice(0,1);
+                                                this.a = owned;
                                             }
                                         }
                                     }

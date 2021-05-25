@@ -30,9 +30,18 @@ class Rectangle {
         rectangle.addListener("click", () => {
             console.log('clicked');
         
-            let e = this.TopCornerLat + (LatBetweenMeter / 2);
-            let a = this.TopCornerLng + (LngBetweenMeter / 2);
-            let pos = {e,a};
+            let thisRectLat = this.TopCornerLat + (LatBetweenMeter / 2);
+            let thisRectLng = this.TopCornerLng + (LngBetweenMeter / 2);
+
+            let contentString = 
+            "The Latitude is: " + thisRectLat + 
+            "<br>" +
+            " The Longatude is: " + thisRectLng +
+            "<br>" +
+            "Owned by: " + this.user +
+            "<br>" +
+            "<br>";
+
             let tradeButton = document.createElement("BUTTON");
             tradeButton.innerText = "Trade";
             
@@ -67,7 +76,7 @@ class Rectangle {
                                     selectMenu.add(option, 0);
 
                                     //console.log(userData[i].latitude[j],userData[i].longitude[j]);
-                                    //tradeClass.tradem2();
+                                    
                                 }
                                 document.getElementById("content").appendChild(selectMenu);
                                 document.getElementById("content").appendChild(submitButton);
@@ -76,35 +85,15 @@ class Rectangle {
                                 submitButton.addEventListener ("click", function(){
                                     //Get string value of selected UON
                                     let selectedOwnedUON = document.querySelector("select").value;
-                                    
-                                    for(let i = 0; i < userData.length; i++){
-                                        for(let j = 0; j < userData[i].latitude.length; j++){
-                                            //
-                                            let UONlat = userData[i].latitude[j];
-                                            let UONlng = userData[i].longitude[j];
-                                            let unownedUON = {UONlat,UONlng};
-                                            unownedUON = Object.values(unownedUON);
-                                            console.log(unownedUON);
-                                            //Checks the UON untill it corresponts to the selected UON
-                                            if(unownedUON == selectedOwnedUON){
-                                                for(let k = 0; k < userData.length; k++){
-                                                    for(let l = 0; l < userData[k].latitude.length; l++){
-                                                        if(unownedUON == this.pos){ 
-                                                            userData[k].latitude[l] = 0;
-                                                            userData[k].longitude[l] = 0;
-                                                            console.log("test");
-                                                        }
-                                                    }
-                                                }
-                                                let owned = selectedOwnedUON.split(",");
-                                                userData[i].latitude[j] = owned.splice(0,1);
-                                                userData[i].longitude[j] = owned;
-                                                
-                                                this.e = owned.splice(0,1);
-                                                this.a = owned;
-                                            }
-                                        }
-                                    }
+                                    let owned = selectedOwnedUON.split(",");
+                                    let ownedLat = owned.splice(0,1);
+                                    let ownedLng = owned;
+
+                                    tradeClass.tradem2(ownedLat,ownedLng,thisRectLat,thisRectLng);
+
+                                    contentString.replace(String(thisRectLat),String(ownedLat));
+                                    contentString.replace(String(thisRectLng),String(ownedLng));
+                                    console.log(contentString);
                                 }); 
                             }
                             
@@ -113,22 +102,10 @@ class Rectangle {
                 }
             }); 
 
-            
-
-            
-            let contentString = 
-            "The Latitude is: " + e + 
-            "<br>" +
-            " The Longatude is: " + a +
-            "<br>" +
-            "Owned by: " + this.user +
-            "<br>" +
-            "<br>";
-            
             document.getElementById("content").innerHTML = contentString;
 
             let popup = new Popup(
-                new google.maps.LatLng(e, a),
+                new google.maps.LatLng(thisRectLat, thisRectLng),
                 document.getElementById("content"),
                 tradeButton
             );

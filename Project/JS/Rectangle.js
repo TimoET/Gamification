@@ -29,9 +29,19 @@ class Rectangle {
 
         rectangle.addListener("click", () => {
             console.log('clicked');
-        
-            let thisRectLat = this.TopCornerLat + (LatBetweenMeter / 2);
-            let thisRectLng = this.TopCornerLng + (LngBetweenMeter / 2);
+            let thisRectLat;
+            let thisRectLng;
+
+            //Sets the lat & lng from the userData
+            for(let i = 0; i < userData.length; i++){
+                if(userData[i].userName == this.user){
+                    for(let j = 0; j < userData[i].latitude.length; j++){
+                        thisRectLat = this.TopCornerLat + (LatBetweenMeter / 2);
+                        thisRectLng = this.TopCornerLng + (LngBetweenMeter / 2);
+                    }
+                }
+            }
+            
 
             let contentString = 
             "The Latitude is: " + thisRectLat + 
@@ -90,10 +100,16 @@ class Rectangle {
                                     let ownedLng = owned;
 
                                     tradeClass.tradem2(ownedLat,ownedLng,thisRectLat,thisRectLng);
-
-                                    contentString.replace(String(thisRectLat),String(ownedLat));
-                                    contentString.replace(String(thisRectLng),String(ownedLng));
-                                    console.log(contentString);
+                                    this.user = currentUser;
+                                    contentString = 
+                                    "The Latitude is: " + ownedLat + 
+                                    "<br>" +
+                                    " The Longatude is: " + ownedLng +
+                                    "<br>" +
+                                    "Owned by: " + currentUser +
+                                    "<br>" +
+                                    "<br>";
+                                    document.getElementById("content").innerHTML = contentString;
                                 }); 
                             }
                             

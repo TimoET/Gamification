@@ -3,7 +3,7 @@ import { renderer } from './globe.js';
 import { earth } from './globe.js';
 // Add event listeners so DOM knows what functions to use when objects/items are interacted with
 window.addEventListener('resize', onWindowResize, false);
-window.addEventListener('click', onWindowClick, false);
+//window.addEventListener('click', onWindowClick, false);
 window.addEventListener('click', onDocumentMouseMove, false);
 
 let canvas = document.querySelector('canvas');
@@ -21,7 +21,7 @@ function onDocumentMouseMove( event ) {
 }
 
 // Listens for the mouse to intersect object and when clicked returns the data to the inner html
-function onWindowClick(event) {
+canvas.addEventListener('click', function(event)  {
     event.preventDefault();
     raycaster.setFromCamera(mouse, camera);
 
@@ -31,15 +31,19 @@ function onWindowClick(event) {
         if (earth.children[i] instanceof THREE.Mesh) 
         {
             intersects.push(raycaster.intersectObject(earth.children[i]));
-            console.log(earth.children[i]);
         }
     }
     
     if (intersects.length > 0) {
         for (let i = 0; i < intersects.length; i++){
-            document.querySelector("#country-info").innerText = "Country: " + intersects[0].object.userData.country;
-            document.querySelector("#area").innerText = "Area: " + intersects[0].object.userData.area;
-            document.querySelector("#area-sq-meter").innerText = "Area(meter^2): " + intersects[0].object.userData.area_sq_meter;
+            if(intersects[0].object != undefined){
+                document.querySelector("#country-info").innerText = "Country: " + intersects[0].object.userData.country;
+                document.querySelector("#area").innerText = "Area: " + intersects[0].object.userData.area;
+                document.querySelector("#area-sq-meter").innerText = "Area(meter^2): " + intersects[0].object.userData.area_sq_meter;
+            }
+            else{
+                console.log("undefined");
+            }
         }
         return intersects;
     } else {
@@ -48,7 +52,7 @@ function onWindowClick(event) {
 
     
 
-};
+});
 
 function showData(){
     

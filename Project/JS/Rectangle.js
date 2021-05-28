@@ -14,6 +14,7 @@ class Rectangle {
         this.color = color;
         this.clickable = clickable || false;
         this.user;
+        this.tradeCompleted = false;
     }
     draw(theMap){
         let rectangle = new google.maps.Rectangle({
@@ -29,24 +30,23 @@ class Rectangle {
 
         rectangle.addListener("click", () => {
             console.log('clicked');
-            let thisRectLat;
-            let thisRectLng;
 
-            //Sets the lat & lng from the userData
-            for(let i = 0; i < userData.length; i++){
-                if(userData[i].userName == this.user){
-                    for(let j = 0; j < userData[i].latitude.length; j++){
-                        thisRectLat = this.TopCornerLat + (LatBetweenMeter / 2);
-                        thisRectLng = this.TopCornerLng + (LngBetweenMeter / 2);
-                    }
-                }
+            let thisRectLat = this.TopCornerLat + (LatBetweenMeter / 2);
+            let thisRectLng = this.TopCornerLng + (LngBetweenMeter / 2);
+            
+            
+            let displayLat;
+            let displayLng;
+            if(this.tradeCompleted == false){
+                displayLat = thisRectLat;
+                displayLng = thisRectLng;
             }
             
 
             let contentString = 
-            "The Latitude is: " + thisRectLat + 
+            "The Latitude is: " + displayLat + 
             "<br>" +
-            " The Longatude is: " + thisRectLng +
+            " The Longatude is: " + displayLng +
             "<br>" +
             "Owned by: " + this.user +
             "<br>" +
@@ -110,6 +110,10 @@ class Rectangle {
                                     "<br>" +
                                     "<br>";
                                     document.getElementById("content").innerHTML = contentString;
+                                    displayLat = userData[1].latitude[1];
+                                    displayLng = userData[1].longitude[1];
+                                    console.log(thisRectLat,thisRectLng);
+                                    this.tradeCompleted = true;
                                 }); 
                             }
                             

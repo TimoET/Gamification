@@ -6,15 +6,16 @@ import { currentUser } from './GoogleMap.js';
 import { userData } from './dataImport.js';
 
 class Rectangle {
-    constructor(TopCornerLat, TopCornerLng, BotCornerLat, BotCornerLng, color, clickable) {
+    constructor(TopCornerLat, TopCornerLng, BotCornerLat, BotCornerLng, color) {
         this.TopCornerLat = TopCornerLat;
         this.TopCornerLng = TopCornerLng;
         this.BotCornerLat = BotCornerLat; 
         this.BotCornerLng = BotCornerLng;
         this.color = color;
-        this.clickable = clickable || false;
         this.user;
-        this.tradeCompleted = false;
+        this.displayLat = TopCornerLat + (LatBetweenMeter / 2);
+        this.displayLng = TopCornerLng + (LngBetweenMeter / 2);
+        this.contentString;
     }
     draw(theMap){
         let rectangle = new google.maps.Rectangle({
@@ -30,27 +31,6 @@ class Rectangle {
 
         rectangle.addListener("click", () => {
             console.log('clicked');
-
-            let thisRectLat = this.TopCornerLat + (LatBetweenMeter / 2);
-            let thisRectLng = this.TopCornerLng + (LngBetweenMeter / 2);
-            
-            
-            let displayLat;
-            let displayLng;
-            if(this.tradeCompleted == false){
-                displayLat = thisRectLat;
-                displayLng = thisRectLng;
-            }
-            
-
-            let contentString = 
-            "The Latitude is: " + displayLat + 
-            "<br>" +
-            " The Longatude is: " + displayLng +
-            "<br>" +
-            "Owned by: " + this.user +
-            "<br>" +
-            "<br>";
 
             let tradeButton = document.createElement("BUTTON");
             tradeButton.innerText = "Trade";
@@ -99,9 +79,9 @@ class Rectangle {
                                     let ownedLat = owned.splice(0,1);
                                     let ownedLng = owned;
 
-                                    tradeClass.tradem2(ownedLat,ownedLng,thisRectLat,thisRectLng);
+                                    tradeClass.tradem2(ownedLat,ownedLng,this.displayLat,this.displayLng);
                                     this.user = currentUser;
-                                    contentString = 
+                                    this.contentString = 
                                     "The Latitude is: " + ownedLat + 
                                     "<br>" +
                                     " The Longatude is: " + ownedLng +
@@ -109,10 +89,10 @@ class Rectangle {
                                     "Owned by: " + currentUser +
                                     "<br>" +
                                     "<br>";
-                                    document.getElementById("content").innerHTML = contentString;
-                                    displayLat = userData[1].latitude[1];
-                                    displayLng = userData[1].longitude[1];
-                                    console.log(thisRectLat,thisRectLng);
+                                    document.getElementById("content").innerHTML = this.contentString;
+                                    this.displayLat = userData[1].latitude[1];
+                                    this.displayLng = userData[1].longitude[1];
+                                    console.log(this.displayLat,this.displayLng);
                                     this.tradeCompleted = true;
                                 }); 
                             }
@@ -122,10 +102,10 @@ class Rectangle {
                 }
             }); 
 
-            document.getElementById("content").innerHTML = contentString;
+            document.getElementById("content").innerHTML = this.contentString;
 
             let popup = new Popup(
-                new google.maps.LatLng(thisRectLat, thisRectLng),
+                new google.maps.LatLng(this.displayLat, this.displayLng),
                 document.getElementById("content"),
                 tradeButton
             );
@@ -135,6 +115,9 @@ class Rectangle {
     }
     addUser(userName){
         this.user = userName;
+    }
+    setContent(content){
+        this.contentString = content;
     }
 }
 

@@ -15,7 +15,6 @@ let gridHeigt = 10;
 let currentUser = userData[0].userName;
 export { currentUser };
 
-
 //initial map creation with start lat and lng
 function initMap() {
     let location = { lat: 40.0441405, lng: -7.125136 };
@@ -48,27 +47,32 @@ function Grid(theMap, witdh, height, TCLat, TCLng, BCLat, BCLng){
   let allRects = [];
   for(let i = 0; i < witdh; i++){
     for(let j = 0; j < height; j++){
-      let rectangle = new Rectangle(TCLat - LatBetweenMeter * j,TCLng + LngBetweenMeter * i, BCLat - LatBetweenMeter * j, BCLng + LngBetweenMeter * i, getRandomColor(), true);
+      let rectangle = new Rectangle(TCLat - LatBetweenMeter * j,TCLng + LngBetweenMeter * i, BCLat - LatBetweenMeter * j, BCLng + LngBetweenMeter * i, getRandomColor());
       rectangle.draw(theMap);
       allRects.push(rectangle);
     }
   }
 
   for(let i = 0; i < allRects.length; i++){
+    let centerOfRectLat = allRects[i].TopCornerLat + (LatBetweenMeter / 2);
+    let centerOfRectLng = allRects[i].TopCornerLng + (LngBetweenMeter / 2);
+    allRects[i].setContent(Content(centerOfRectLat,centerOfRectLng, "UNOWNED"));
+
     for(let j = 0; j < userData.length; j++){
       for(let k = 0; k < userData[j].latitude.length; k++){
         if(userData[j].latitude[k] == allRects[i].TopCornerLat + (LatBetweenMeter / 2) && userData[j].longitude[k] == allRects[i].TopCornerLng + (LngBetweenMeter / 2)){
           console.log("UON owned");
           allRects[i].addUser(userData[j].userName);
+          allRects[i].setContent(Content(centerOfRectLat,centerOfRectLng, userData[j].userName));
         }
       }
     }
-  }  
+  } 
 }
 
 function GenerateAllGrids(theMap) {
   for (let i = 0; i < data.length; i++){
-    Grid(theMap, gridWidth, gridHeigt, data[i].latitude, data[i].longitude, data[i].latitude + LatBetweenMeter, data[i].longitude + LngBetweenMeter, true);
+    Grid(theMap, gridWidth, gridHeigt, data[i].latitude, data[i].longitude, data[i].latitude + LatBetweenMeter, data[i].longitude + LngBetweenMeter);
   }
 };
 
@@ -79,5 +83,16 @@ function getRandomColor() {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
+}
+
+function Content(lat,lng,name){
+  let popUpContent = "The Latitude is: " + lat + 
+  "<br>" +
+  " The Longatude is: " + lng +
+  "<br>" +
+  "Owned by: " + name +
+  "<br>" +
+  "<br>";
+  return popUpContent;
 }
 

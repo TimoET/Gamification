@@ -40,6 +40,8 @@ canvas.addEventListener('click', function(event)  {
                 document.querySelector("#country-info").innerText = "Country: " + intersects[0].object.userData.country;
                 document.querySelector("#area").innerText = "Area: " + intersects[0].object.userData.area;
                 document.querySelector("#area-sq-meter").innerText = "Area(meter^2): " + intersects[0].object.userData.area_sq_meter;
+                document.getElementById("map").style.display = "block";
+                canvas.style.display = "none";
             }
             else{
                 console.log("undefined");

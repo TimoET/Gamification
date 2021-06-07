@@ -1,5 +1,5 @@
 class Popup extends google.maps.OverlayView {
-    constructor(position, content,button) {
+    constructor(position, content) {
       super();
       this.position = position;
       content.classList.add("popup-bubble");
@@ -11,7 +11,6 @@ class Popup extends google.maps.OverlayView {
       this.containerDiv = document.createElement("div");
       this.containerDiv.classList.add("popup-container");
       this.containerDiv.appendChild(bubbleAnchor);
-      content.appendChild(button);
       // Optionally stop clicks, etc., from bubbling up to the map.
       Popup.preventMapHitsAndGesturesFrom(this.containerDiv);
     }

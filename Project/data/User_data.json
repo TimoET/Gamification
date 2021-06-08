@@ -1,16 +1,19 @@
 [
     {
         "userName":"Timo Brandt",
+        "color":"red",
         "latitude":[ 40.0444805, 40.0444805, 40.0443955 ],
         "longitude":[ -7.125536, -7.125336, -7.125536 ]
     },
     {
         "userName":"Remco Groen",
+        "color":"green",
         "latitude":[ 40.0444805, 40.0444805, 40.0443955],
         "longitude":[  -7.124736, -7.124636000000001, -7.124636000000001 ]
     },
     {
         "userName":"Sashu Sanil",
+        "color":"blue",
         "latitude":[ 40.0444805, 40.0444805, 40.0444805 ],
         "longitude":[ -7.125136, -7.125036000000001, -7.124936 ]
     }

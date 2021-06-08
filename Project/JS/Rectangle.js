@@ -54,6 +54,9 @@ class Rectangle {
     setContent(content){
         this.contentString = content;
     }
+    setColor(userColor){
+        this.color = userColor;
+    }
 }
 
 export { Rectangle };

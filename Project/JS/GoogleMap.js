@@ -51,7 +51,7 @@ function Grid(theMap, witdh, height, TCLat, TCLng, BCLat, BCLng){
   
   for(let i = 0; i < witdh; i++){
     for(let j = 0; j < height; j++){
-      let rectangle = new Rectangle(TCLat - LatBetweenMeter * j,TCLng + LngBetweenMeter * i, BCLat - LatBetweenMeter * j, BCLng + LngBetweenMeter * i, getRandomColor());
+      let rectangle = new Rectangle(TCLat - LatBetweenMeter * j,TCLng + LngBetweenMeter * i, BCLat - LatBetweenMeter * j, BCLng + LngBetweenMeter * i, "#808080");
       rectangle.draw(theMap);
       allRects.push(rectangle);
     }
@@ -68,6 +68,8 @@ function Grid(theMap, witdh, height, TCLat, TCLng, BCLat, BCLng){
           console.log("UON owned");
           allRects[i].addUser(userData[j].userName);
           allRects[i].setContent(Content(centerOfRectLat,centerOfRectLng, userData[j].userName));
+          allRects[i].setColor(userData[j].color);
+          allRects[i].draw(theMap);
         }
       }
     }

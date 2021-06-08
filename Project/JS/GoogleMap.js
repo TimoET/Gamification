@@ -68,7 +68,10 @@ function Grid(theMap, witdh, height, TCLat, TCLng, BCLat, BCLng){
           console.log("UON owned");
           allRects[i].addUser(userData[j].userName);
           allRects[i].setContent(Content(centerOfRectLat,centerOfRectLng, userData[j].userName));
-          allRects[i].setColor(userData[j].color);
+          if(allRects[i].color == "#808080"){
+            allRects[i].setColor(userData[j].color);
+          }
+          
           allRects[i].draw(theMap);
         }
       }

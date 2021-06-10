@@ -1,6 +1,8 @@
 import { camera } from './globe.js';
 import { renderer } from './globe.js';
 import { earth } from './globe.js';
+import { map } from './GoogleMap.js';
+import { allMarkers } from './GoogleMap.js';
 // Add event listeners so DOM knows what functions to use when objects/items are interacted with
 window.addEventListener('resize', onWindowResize, false);
 //window.addEventListener('click', onWindowClick, false);
@@ -42,6 +44,12 @@ canvas.addEventListener('click', function(event)  {
                 document.querySelector("#area-sq-meter").innerText = "Area(meter^2): " + intersects[0].object.userData.area_sq_meter;
                 document.getElementById("map").style.display = "block";
                 canvas.style.display = "none";
+                for(let j = 0; j < allMarkers.length; j++){
+                    console.log(allMarkers);
+                    if(allMarkers[j].title == intersects[0].object.userData.area){
+                        map.panTo(allMarkers[j].position);
+                    }
+                }
             }
             else{
                 console.log("undefined");

@@ -3,28 +3,33 @@ import { userData } from './dataImport.js';
 import { Rectangle } from './Rectangle.js';
 import { Trade } from './Trade.js';
 
+export {map};
+export { LatBetweenMeter };
+export { LngBetweenMeter };
+export { currentUser };
+export { allMarkers };
+
+let map;
+
 // Amount of Latitude and longatute between meters
 let LatBetweenMeter = 0.000085;
 let LngBetweenMeter = 0.0001000;
-
-export { LatBetweenMeter };
-export { LngBetweenMeter };
 
 //Grid width and height
 let gridWidth = 10;
 let gridHeigt = 10;
 
 let currentUser = userData[0].userName;
-export { currentUser };
 
 let allRects = [];
+let allMarkers = [];
 
 //initial map creation with start lat and lng
 function initMap() {
     let location = { lat: 40.0441405, lng: -7.125136 };
-    let map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById("map"), {
     center: location,
-    zoom: 8,
+    zoom: 18,
     gestureHandling: "greedy",
     mapTypeId: google.maps.MapTypeId.HYBRID,
     mapTypeControl: false,
@@ -41,9 +46,14 @@ function MarkerMaker(theMap){
     var marker = new google.maps.Marker({
       position: myLatlng,
       title:data[i].Area
-  });
-  marker.setMap(theMap);
+    });
+
+    allMarkers.push(marker);
+    marker.setMap(theMap);
+    console.log(allMarkers);
+    console.log(marker);
   }
+  return;
 }
 
 function Grid(theMap, witdh, height, TCLat, TCLng, BCLat, BCLng){
@@ -84,15 +94,6 @@ function GenerateAllGrids(theMap) {
     Grid(theMap, gridWidth, gridHeigt, data[i].latitude, data[i].longitude, data[i].latitude + LatBetweenMeter, data[i].longitude + LngBetweenMeter);
   }
 };
-
-function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
 
 function Content(lat,lng,name){
   let popUpContent = "The Latitude is: " + lat + 

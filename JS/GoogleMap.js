@@ -8,6 +8,7 @@ export { LatBetweenMeter };
 export { LngBetweenMeter };
 export { currentUser };
 export { allMarkers };
+export { TradeButton };
 
 let map;
 
@@ -54,8 +55,6 @@ function MarkerMaker(theMap){
 }
 
 function Grid(theMap, witdh, height, TCLat, TCLng, BCLat, BCLng){
-  //Rectangles array
-  
   for(let i = 0; i < witdh; i++){
     for(let j = 0; j < height; j++){
       let rectangle = new Rectangle(TCLat - LatBetweenMeter * j,TCLng + LngBetweenMeter * i, BCLat - LatBetweenMeter * j, BCLng + LngBetweenMeter * i, "#808080");
@@ -119,6 +118,7 @@ function TradeButton(rectUser){
       }
   }); 
 }
+
 function Select(){
   for(let i = 0; i < userData.length; i++){
     //Loops through userData to find the currentUser 
@@ -144,6 +144,7 @@ function Select(){
       }
   }
 }
+
 function Submit(){
   //Create submit button
   let submitButton = document.createElement("BUTTON");
@@ -164,15 +165,11 @@ function Submit(){
     let tradeClass = new Trade();
     tradeClass.tradem2(ownedLat,ownedLng,this.displayLat,this.displayLng);
 
-
     //allRects[i].setContent(Content(centerOfRectLat,centerOfRectLng, userData[j].userName));
-    console.log(allRects[9]);
+    
     this.contentString = Content(ownedLat,ownedLng,currentUser);
     TradeButton(this.user);
-    console.log(this.user);
     document.getElementById("content").innerHTML = this.contentString;
-    
   }); 
 }
 
-export {TradeButton};

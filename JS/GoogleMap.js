@@ -3,7 +3,7 @@ import { userData } from './dataImport.js';
 import { Rectangle } from './Rectangle.js';
 import { Trade } from './Trade.js';
 
-export {map};
+export { map };
 export { LatBetweenMeter };
 export { LngBetweenMeter };
 export { currentUser };
@@ -47,11 +47,8 @@ function MarkerMaker(theMap){
       position: myLatlng,
       title:data[i].Area
     });
-
     allMarkers.push(marker);
     marker.setMap(theMap);
-    console.log(allMarkers);
-    console.log(marker);
   }
   return;
 }
@@ -70,18 +67,17 @@ function Grid(theMap, witdh, height, TCLat, TCLng, BCLat, BCLng){
   for(let i = 0; i < allRects.length; i++){
     let centerOfRectLat = allRects[i].TopCornerLat + (LatBetweenMeter / 2);
     let centerOfRectLng = allRects[i].TopCornerLng + (LngBetweenMeter / 2);
-    allRects[i].setContent(Content(centerOfRectLat,centerOfRectLng, "UNOWNED"));
+    if(allRects[i].color == "#808080"){
+      allRects[i].setContent(Content(centerOfRectLat,centerOfRectLng, "UNOWNED"));
+    }
 
     for(let j = 0; j < userData.length; j++){
       for(let k = 0; k < userData[j].latitude.length; k++){
-        if(userData[j].latitude[k] == allRects[i].TopCornerLat + (LatBetweenMeter / 2) && userData[j].longitude[k] == allRects[i].TopCornerLng + (LngBetweenMeter / 2)){
+        if(userData[j].latitude[k] == allRects[i].TopCornerLat + (LatBetweenMeter / 2) && userData[j].longitude[k] == allRects[i].TopCornerLng + (LngBetweenMeter / 2) && allRects[i].color == "#808080"){
           console.log("UON owned");
           allRects[i].addUser(userData[j].userName);
           allRects[i].setContent(Content(centerOfRectLat,centerOfRectLng, userData[j].userName));
-          if(allRects[i].color == "#808080"){
-            allRects[i].setColor(userData[j].color);
-          }
-          
+          allRects[i].setColor(userData[j].color);
           allRects[i].draw(theMap);
         }
       }

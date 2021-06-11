@@ -45,7 +45,6 @@ canvas.addEventListener('click', function(event)  {
                 document.getElementById("map").style.display = "block";
                 canvas.style.display = "none";
                 for(let j = 0; j < allMarkers.length; j++){
-                    console.log(allMarkers);
                     if(allMarkers[j].title == intersects[0].object.userData.area){
                         map.panTo(allMarkers[j].position);
                     }

@@ -1,4 +1,4 @@
-import { OrbitControls } from '../JSM/controls/OrbitControls.js';
+import { OrbitControls } from "https://unpkg.com/three@0.125.1/examples/jsm/controls/OrbitControls.js";
 import { camera } from './globe.js';
 import { renderer } from './globe.js';
 

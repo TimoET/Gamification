@@ -1,4 +1,4 @@
-import * as THREE from '../build/three.module.js';
+import * as THREE from "https://unpkg.com/three@0.125.1/build/three.module.js";
 
 //SCENE (Enviorment for objects)
 const scene = new THREE.Scene();

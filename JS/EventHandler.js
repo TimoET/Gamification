@@ -3,6 +3,7 @@ import { renderer } from './globe.js';
 import { earth } from './globe.js';
 import { map } from './GoogleMap.js';
 import { allMarkers } from './GoogleMap.js';
+
 // Add event listeners so DOM knows what functions to use when objects/items are interacted with
 window.addEventListener('resize', onWindowResize, false);
 //window.addEventListener('click', onWindowClick, false);

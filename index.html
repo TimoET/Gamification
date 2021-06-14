@@ -3,6 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Globe</title>
+		<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxwEAD_XHAvfWyayJmW90mADVmxNc2kso"></script>
 		<script src="js/three.js"></script>
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 		<link rel="stylesheet" type="text/css" href="./css/style.css" />
@@ -23,8 +25,7 @@
 			</div>
 		</div>
 		<div id="content"></div>
-		<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxwEAD_XHAvfWyayJmW90mADVmxNc2kso"></script>
+		
 		<script type="module" src="js/globe.js"></script>
 		<script type="module" src="js/dataImport.js"></script>
 		<script type="module" src="js/ZonesCreation.js"></script>

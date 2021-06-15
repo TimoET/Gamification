@@ -1,10 +1,12 @@
 import { userData } from './dataImport.js';
+import { allRects } from './GoogleMap.js';
+import { Content } from './GoogleMap.js';
 
 class Trade {
     constructor(){
 
     }
-    tradem2(user1Lat, user1Lng, user2Lat, user2Lng){
+    tradem2(user1, user1Color, user1Lat, user1Lng, user2, user2Color, user2Lat, user2Lng, theMap){
         //Owned by current user
         let ownedLat = user1Lat;
         let ownedLng = user1Lng;
@@ -27,7 +29,7 @@ class Trade {
                 else if(userData[i].latitude[j] == ownedLat && userData[i].longitude[j] == ownedLng){
                     userData[i].latitude[j] = user2Lat;
                     userData[i].longitude[j] = user2Lng;
-
+                    
                     // console.log("User 2 lat & lng");
                     // console.log(user2Lat,user2Lng);
                     // console.log("Switched lat & lng");
@@ -35,6 +37,21 @@ class Trade {
                 }
             }
         }
+        for(let i = 0; i < allRects.length; i++){
+            if(allRects[i].displayLat == ownedLat && allRects[i].displayLng == ownedLng){
+                allRects[i].addUser(user2);
+                allRects[i].setContent(Content(user2Lat,user2Lng, user2));
+                allRects[i].setColor(user2Color);
+                allRects[i].draw(theMap);
+            }
+            else if(allRects[i].displayLat == wantedLat && allRects[i].displayLng == wantedLng){
+                allRects[i].addUser(user1);
+                allRects[i].setContent(Content(user1Lat,user1Lng, user1));
+                allRects[i].setColor(user1Color);
+                allRects[i].draw(theMap);
+            }
+        }
+
         console.log("you traded!");
     }
 }

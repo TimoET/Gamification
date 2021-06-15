@@ -8,7 +8,9 @@ export { LatBetweenMeter };
 export { LngBetweenMeter };
 export { currentUser };
 export { allMarkers };
+export { allRects };
 export { TradeButton };
+export { Content };
 
 let map;
 
@@ -163,13 +165,13 @@ function Submit(){
 
     //Trade the selected UON for the clicked square UON
     let tradeClass = new Trade();
-    tradeClass.tradem2(ownedLat,ownedLng,this.displayLat,this.displayLng);
+    tradeClass.tradem2(currentUser,"red",ownedLat,ownedLng, this.user,this.color,this.displayLat,this.displayLng, map);
 
     //allRects[i].setContent(Content(centerOfRectLat,centerOfRectLng, userData[j].userName));
     
-    this.contentString = Content(ownedLat,ownedLng,currentUser);
-    TradeButton(this.user);
-    document.getElementById("content").innerHTML = this.contentString;
+    //this.contentString = Content(ownedLat,ownedLng,currentUser);
+    //TradeButton(this.user);
+    //document.getElementById("content").innerHTML = this.contentString;
   }); 
 }
 

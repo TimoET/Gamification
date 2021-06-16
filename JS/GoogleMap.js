@@ -23,6 +23,7 @@ let gridWidth = 10;
 let gridHeigt = 10;
 
 let currentUser = userData[0].userName;
+let userColor = userData[0].color;
 
 let allRects = [];
 let allMarkers = [];
@@ -147,6 +148,14 @@ function Select(){
   }
 }
 
+let clickedRect = {
+  user: null,
+  color: null,
+  lng: null,
+  lat: null,
+}
+
+export { clickedRect };
 function Submit(){
   //Create submit button
   let submitButton = document.createElement("BUTTON");
@@ -165,13 +174,7 @@ function Submit(){
 
     //Trade the selected UON for the clicked square UON
     let tradeClass = new Trade();
-    tradeClass.tradem2(currentUser,"red",ownedLat,ownedLng, this.user,this.color,this.displayLat,this.displayLng, map);
-
-    //allRects[i].setContent(Content(centerOfRectLat,centerOfRectLng, userData[j].userName));
-    
-    //this.contentString = Content(ownedLat,ownedLng,currentUser);
-    //TradeButton(this.user);
-    //document.getElementById("content").innerHTML = this.contentString;
+    tradeClass.tradem2(currentUser,userColor,ownedLat,ownedLng, clickedRect.user,clickedRect.color,clickedRect.lat,clickedRect.lng, map);
   }); 
 }
 

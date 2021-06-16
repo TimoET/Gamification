@@ -2,6 +2,7 @@ import { Popup } from './Popup.js';
 import { LatBetweenMeter } from './GoogleMap.js';
 import { LngBetweenMeter } from './GoogleMap.js';
 import { TradeButton } from './GoogleMap.js';
+import { clickedRect } from './GoogleMap.js';;
 
 class Rectangle {
     constructor(TopCornerLat, TopCornerLng, BotCornerLat, BotCornerLng, color) {
@@ -45,7 +46,8 @@ class Rectangle {
             setTimeout(() => {
                 TradeButton(this.user)
             }, 20);
-            
+
+            this.setValues(this.user,this.color,this.displayLat,this.displayLng);
         });
     }
     addUser(userName){
@@ -56,6 +58,12 @@ class Rectangle {
     }
     setColor(userColor){
         this.color = userColor;
+    }
+    setValues(user,color,lat,lng){
+        clickedRect.user = user;
+        clickedRect.color = color;
+        clickedRect.lat = lat;
+        clickedRect.lng = lng;
     }
 }
 

@@ -29,14 +29,17 @@ class Trade {
         }
         for(let i = 0; i < allRects.length; i++){
             if(allRects[i].displayLat == ownedLat && allRects[i].displayLng == ownedLng){
+                console.log(allRects[i]);
                 allRects[i].addUser(user2);
                 allRects[i].setContent(Content(user2Lat,user2Lng, user2));
+                //allRects[i].clearRect(allRects[i]);
                 allRects[i].setColor(user2Color);
                 allRects[i].draw(theMap);
             }
             else if(allRects[i].displayLat == wantedLat && allRects[i].displayLng == wantedLng){
                 allRects[i].addUser(user1);
                 allRects[i].setContent(Content(user1Lat,user1Lng, user1));
+                //allRects[i].clearRect(allRects[i]);
                 allRects[i].setColor(user1Color);
                 allRects[i].draw(theMap);
             }

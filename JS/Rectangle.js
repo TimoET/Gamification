@@ -25,7 +25,7 @@ class Rectangle {
             ),
             fillColor: this.color,
             strokeColor: this.color,
-            strokeWeight: 1,
+            strokeWeight: 0.5,
         });
 
         rectangle.addListener("click", () => {
@@ -64,6 +64,10 @@ class Rectangle {
         clickedRect.color = color;
         clickedRect.lat = lat;
         clickedRect.lng = lng;
+    }
+    clearRect(rect){
+        rect.draw.rectangle.setMap(null);
+        //rectangle.clearRect(0,0,rectangle.width,rectangle.height);
     }
 }
 

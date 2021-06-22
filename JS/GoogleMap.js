@@ -162,19 +162,25 @@ function Submit(){
   submitButton.innerText = "Submit";
   document.getElementById("content").appendChild(submitButton);
 
+  let submitClicked = false;
   //Listen for click
   submitButton.addEventListener ("click", function(){
     //Get string value of selected owned UON
-    let selectedOwnedUON = document.querySelector("select").value;
+    
+    if(submitClicked == false){
+      let selectedOwnedUON = document.querySelector("select").value;
 
-    //Splits the string value into 2 values
-    let owned = selectedOwnedUON.split(",");
-    let ownedLat = owned.splice(0,1);
-    let ownedLng = owned;
+      //Splits the string value into 2 values
+      let owned = selectedOwnedUON.split(",");
+      let ownedLat = owned.splice(0,1);
+      let ownedLng = owned;
 
-    //Trade the selected UON for the clicked square UON
-    let tradeClass = new Trade();
-    tradeClass.tradem2(currentUser,userColor,ownedLat,ownedLng, clickedRect.user,clickedRect.color,clickedRect.lat,clickedRect.lng, map);
+      //Trade the selected UON for the clicked square UON
+      let tradeClass = new Trade();
+      tradeClass.tradem2(currentUser,userColor,ownedLat,ownedLng, clickedRect.user,clickedRect.color,clickedRect.lat,clickedRect.lng, map);
+
+      submitClicked = true;
+    }
   }); 
 }
 

@@ -29,19 +29,23 @@ class Rectangle {
         });
 
         rectangle.addListener("click", () => {
-            console.log('clicked');
-
-            if(document.getElementById("popup-bubble-anchor")){
-                document.getElementById("popup-bubble-anchor").style.display = "none";
+            //Checks for already existing popups and makes them hidden
+            if(document.getElementsByClassName("popup-bubble-anchor")){
+                let elements = document.getElementsByClassName("popup-bubble-anchor");
+                for(let i = 0; i < elements.length; i++){
+                    elements[i].style.display = "none";
+                }
             }
 
             document.getElementById("content").innerHTML = this.contentString;
 
+            //Creates new Popup on this rectangle lat & lng with content
             let popup = new Popup(
                 new google.maps.LatLng(this.displayLat, this.displayLng),
                 document.getElementById("content")
             );
             
+            //Creates the popup on google maps and after 20 miliseconds adds the trade button to the popup
             popup.setMap(theMap);
             setTimeout(() => {
                 TradeButton(this.user)

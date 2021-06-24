@@ -15,9 +15,10 @@ class Rectangle {
         this.displayLat = TopCornerLat + (LatBetweenMeter / 2);
         this.displayLng = TopCornerLng + (LngBetweenMeter / 2);
         this.contentString;
+        this.rectangle;
     }
     draw(theMap){
-        let rectangle = new google.maps.Rectangle({
+        this.rectangle = new google.maps.Rectangle({
             map: theMap,
             bounds: new google.maps.LatLngBounds(
               new google.maps.LatLng (this.TopCornerLat, this.TopCornerLng),
@@ -25,10 +26,11 @@ class Rectangle {
             ),
             fillColor: this.color,
             strokeColor: this.color,
+            fillOpacity: 0.5, 
             strokeWeight: 0.5,
         });
 
-        rectangle.addListener("click", () => {
+        this.rectangle.addListener("click", () => {
             //Checks for already existing popups and makes them hidden
             if(document.getElementsByClassName("popup-bubble-anchor")){
                 let elements = document.getElementsByClassName("popup-bubble-anchor");
@@ -53,6 +55,7 @@ class Rectangle {
 
             this.setValues(this.user,this.color,this.displayLat,this.displayLng);
         });
+        
     }
     addUser(userName){
         this.user = userName;
@@ -69,9 +72,12 @@ class Rectangle {
         clickedRect.lat = lat;
         clickedRect.lng = lng;
     }
-    clearRect(rect){
-        rect.draw.rectangle.setMap(null);
-        //rectangle.clearRect(0,0,rectangle.width,rectangle.height);
+    clearRectFromMap(){
+        //this.rectangle.setMap(null);;
+        let c = document.getElementById("map");
+        let ctx = c.getContext("2d");
+        ctx.clearRect(0,0,1920,1080);
+        //this.rectangle.visible = false;
     }
 }
 

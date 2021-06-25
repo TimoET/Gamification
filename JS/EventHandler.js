@@ -40,9 +40,6 @@ canvas.addEventListener('click', function(event)  {
     if (intersects.length > 0) {
         for (let i = 0; i < intersects.length; i++){
             if(intersects[0].object != undefined){
-                document.querySelector("#country-info").innerText = "Country: " + intersects[0].object.userData.country;
-                document.querySelector("#area").innerText = "Area: " + intersects[0].object.userData.area;
-                document.querySelector("#area-sq-meter").innerText = "Area(meter^2): " + intersects[0].object.userData.area_sq_meter;
                 document.getElementById("map").style.display = "block";
                 canvas.style.display = "none";
                 for(let j = 0; j < allMarkers.length; j++){
@@ -63,10 +60,6 @@ canvas.addEventListener('click', function(event)  {
     
 
 });
-
-function showData(){
-    
-}
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;

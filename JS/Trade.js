@@ -1,4 +1,4 @@
-import { userData } from './dataImport.js';
+import { userData } from './DataImport.js';
 import { allRects } from './GoogleMap.js';
 import { Content } from './GoogleMap.js';
 

@@ -1,6 +1,6 @@
 import { OrbitControls } from "https://unpkg.com/three@0.125.1/examples/jsm/controls/OrbitControls.js";
-import { camera } from './globe.js';
-import { renderer } from './globe.js';
+import { camera } from './Globe.js';
+import { renderer } from './Globe.js';
 
 let controls = new OrbitControls( camera, renderer.domElement );
 controls.listenToKeyEvents( window ); // optional

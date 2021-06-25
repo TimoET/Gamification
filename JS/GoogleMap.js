@@ -1,5 +1,5 @@
-import { data } from './dataImport.js';
-import { userData } from './dataImport.js';
+import { data } from './DataImport.js';
+import { userData } from './DataImport.js';
 import { Rectangle } from './Rectangle.js';
 import { Trade } from './Trade.js';
 

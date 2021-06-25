@@ -1,6 +1,6 @@
-import { camera } from './globe.js';
-import { renderer } from './globe.js';
-import { earth } from './globe.js';
+import { camera } from './Globe.js';
+import { renderer } from './Globe.js';
+import { earth } from './Globe.js';
 import { map } from './GoogleMap.js';
 import { allMarkers } from './GoogleMap.js';
 

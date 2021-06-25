@@ -1,5 +1,5 @@
-import { data } from './dataImport.js';
-import { earth } from './globe.js';
+import { data } from './DataImport.js';
+import { earth } from './Globe.js';
 // Create and add coordinates for the globe
 function addCountryCoord(earth, country, area, latitude, longitude, color, area_sq_meter){
     let pointOfInterest = new THREE.SphereGeometry(.1, 32, 32);
